@@ -1,0 +1,28 @@
+services:
+  api:
+    build: ./backend
+    environment:
+      DATABASE_PATH: /app/data/nashplay.sqlite3
+      CORS_ORIGINS: http://localhost:5173
+    volumes:
+      - app-data:/app/data
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  frontend:
+    build: ./frontend
+    environment:
+      VITE_API_BASE: http://localhost:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  app-data:
