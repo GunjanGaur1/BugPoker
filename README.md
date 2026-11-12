@@ -1,4 +1,4 @@
-# BugPoker
+# BugPoker (Using Nash Equilibrium-Based AI)
 
 BugPoker is a full-stack bluffing card game application where a human player competes against an AI-controlled opponent using simplified Cockroach Poker rules.
 
